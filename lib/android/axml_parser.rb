@@ -116,7 +116,8 @@ module Android
         when TAG_END
           @parents.pop
         when TAG_END_DOC
-          break
+          #multi tag_end_doc
+          #break
         when TAG_TEXT
           text = REXML::Text.new(@strings[ns_id])
           @parents.last.text = text
