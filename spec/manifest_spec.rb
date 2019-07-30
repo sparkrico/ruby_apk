@@ -195,6 +195,17 @@ describe Android::Manifest do
         subject { manifest.label }
         it { should eq 'My Application' }
       end
+
+      context "with real AndroidManifest file" do
+        let(:tmp_path){ File.expand_path(File.dirname(__FILE__) + '/data/sample_multi_end_doc_AndroidManifest.xml') }
+        
+        let(:bindata){File.open(tmp_path, 'rb') {|f| f.read }}
+
+        let(:apk) { Android::AXMLParser.new(bindata) }
+        let(:doc){ apk.parse }
+        subject { doc.elements['/manifest/application'].attributes['label'] }
+        it { should eq '@0x7f0c0027' }
+      end
     end
     describe "#doc" do
       subject { manifest.doc }
